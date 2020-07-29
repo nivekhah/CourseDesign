@@ -1,6 +1,9 @@
 #include "static.h"
-#include <iostream>
 #include "str_tool.h"
+
+#if COMMAND_LINE
+#include <iostream>
+#endif
 
 using namespace std;
 

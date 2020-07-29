@@ -11,49 +11,44 @@ using namespace std;
 int people_num;
 people *people_list;
 
-int people_init();
-int people_index(const string& info);
-int people_index(int number);
-people people_new();
-int people_append(people p);
-int people_upload();
-void people_end();
+int people_load_cache();
+people people_new_command_line();
+void people_clean_cache();
+people get_from_net();
+people get_by_name(string name);
+people get_by_number(int number);
+people get_by_phone(string phone);
+int remove_people(int number);
+int add_people(const people& n);
+void send_people(const people& n);
 
-int people_init() {
-    data_socket->send_msg("/get-people");
+int people_load_cache() {
+    data_socket->send_msg("/get-people-all");
     people_num = str_to_int(data_socket->get_msg());
     people_list = (people *) malloc(people_num * sizeof(people));
     for (int i = 0; i < people_num; ++i) {
-        people_list[i].set_number(str_to_int(data_socket->get_msg()));
-        people_list[i].set_name(data_socket->get_msg());
-        people_list[i].set_age(str_to_int(data_socket->get_msg()));
-        people_list[i].set_sex(str_to_int(data_socket->get_msg()));
-        people_list[i].set_phone(data_socket->get_msg());
+        people_list[i] = get_from_net();
     }
     return 0;
 }
 
-void people_end() {
+people get_from_net() {
+    people ret;
+    ret.set_number(str_to_int(data_socket->get_msg()));
+    ret.set_name(data_socket->get_msg());
+    ret.set_age(str_to_int(data_socket->get_msg()));
+    ret.set_sex(str_to_int(data_socket->get_msg()));
+    ret.set_phone(data_socket->get_msg());
+    return ret;
+}
+
+void people_clean_cache() {
     free(people_list);
 }
 
-int people_index(const string& info) {
-    for (int i = 0; i < people_num; ++i) {
-        if (people_list[i].get_name() == info || people_list[i].get_phone() == info)
-            return i;
-    }
-    return -1;
-}
+#if COMMAND_LINE
 
-int people_index(int number) {
-    for (int i = 0; i < people_num; ++i) {
-        if (people_list[i].get_number() == number)
-            return i;
-    }
-    return -1;
-}
-
-people people_new() {
+people people_new_command_line() {
     people ret;
     string in;
     cout << "输入会员编号: ";
@@ -74,23 +69,42 @@ people people_new() {
     return ret;
 }
 
-int people_append(people p) {
-    people_list = (people *) realloc(people_list, sizeof(people) * (people_num + 1));
-    people_list[people_num] = std::move(p);
-    people_num++;
-    return 0;
+#endif
+
+people get_by_name(string name) {
+    data_socket->send_msg("/get-people-name");
+    data_socket->send_msg(std::move(name));
+    return get_from_net();
 }
 
-int people_upload() {
-    data_socket->send_msg("/upload-people");
-    data_socket->send_msg(to_string(people_num));
-    for (int i = 0; i < people_num; ++i) {
-        people n = people_list[i];
-        data_socket->send_msg(to_string(n.get_number()));
-        data_socket->send_msg(n.get_name());
-        data_socket->send_msg(to_string(n.get_age()));
-        data_socket->send_msg(to_string(n.get_sex()));
-        data_socket->send_msg(n.get_phone());
-    }
-    return 0;
+people get_by_number(int number) {
+    data_socket->send_msg("/get-people-number");
+    data_socket->send_msg(to_string(number));
+    return get_from_net();
+}
+
+people get_by_phone(string phone) {
+    data_socket->send_msg("/get-people-phone");
+    data_socket->send_msg(move(phone));
+    return  get_from_net();
+}
+
+int remove_people(int number) {
+    data_socket->send_msg("/del-people");
+    data_socket->send_msg(to_string(number));
+    return str_to_int(data_socket->get_msg());
+}
+
+void send_people(const people& n) {
+    data_socket->send_msg(to_string(n.get_number()));
+    data_socket->send_msg(n.get_name());
+    data_socket->send_msg(to_string(n.get_age()));
+    data_socket->send_msg(to_string(n.get_age()));
+    data_socket->send_msg(n.get_phone());
+}
+
+int add_people(const people& n) {
+    data_socket->send_msg("/add-people");
+    send_people(n);
+    return str_to_int(data_socket->get_msg());
 }
