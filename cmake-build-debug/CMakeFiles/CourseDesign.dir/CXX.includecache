@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/kininaru/Desktop/git/CourseDesign/main.cpp
+static.h
+/Users/kininaru/Desktop/git/CourseDesign/static.h
+iostream
+-
+str_tool.h
+/Users/kininaru/Desktop/git/CourseDesign/str_tool.h
+
+/Users/kininaru/Desktop/git/CourseDesign/my_socket.cpp
+my_socket.h
+/Users/kininaru/Desktop/git/CourseDesign/my_socket.h
+
+/Users/kininaru/Desktop/git/CourseDesign/my_socket.h
+netinet/in.h
+-
+arpa/inet.h
+-
+string
+-
+cstdlib
+-
+unistd.h
+-
+
+/Users/kininaru/Desktop/git/CourseDesign/static.h
+my_socket.cpp
+/Users/kininaru/Desktop/git/CourseDesign/my_socket.cpp
+
+/Users/kininaru/Desktop/git/CourseDesign/str_tool.h
+string
+-
+

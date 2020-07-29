@@ -12,6 +12,6 @@ int char_to_int(char *str) {
     return ret;
 }
 
-int str_to_int(const string& str) {
+int str_to_int(const string &str) {
     return char_to_int((char *) str.c_str());
 }

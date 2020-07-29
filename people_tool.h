@@ -84,5 +84,14 @@ int people_append(people p) {
 
 int people_upload() {
     data_socket->send_msg("/upload-people");
-    data_socket->send_msg(people_num);
+    data_socket->send_msg(to_string(people_num));
+    for (int i = 0; i < people_num; ++i) {
+        people n = people_list[i];
+        data_socket->send_msg(to_string(n.get_number()));
+        data_socket->send_msg(n.get_name());
+        data_socket->send_msg(to_string(n.get_age()));
+        data_socket->send_msg(to_string(n.get_sex()));
+        data_socket->send_msg(n.get_phone());
+    }
+    return 0;
 }

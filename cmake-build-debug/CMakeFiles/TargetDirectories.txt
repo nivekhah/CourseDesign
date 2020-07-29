@@ -1,0 +1,3 @@
+/Users/kininaru/Desktop/git/CourseDesign/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/kininaru/Desktop/git/CourseDesign/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/kininaru/Desktop/git/CourseDesign/cmake-build-debug/CMakeFiles/CourseDesign.dir

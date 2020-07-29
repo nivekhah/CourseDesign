@@ -1,8 +1,53 @@
-//
-// Created by Kininaru on 2020/7/28.
-//
+#include <string>
+#include "date.h"
 
-#ifndef COURSEDESIGN_BOOK_H
-#define COURSEDESIGN_BOOK_H
+#define UNK 0
+#define LIB 1
+#define OUT 2
 
-#endif //COURSEDESIGN_BOOK_H
+using namespace std;
+
+class book {
+    int index, age, mode;
+    double price;
+    string name, author, publish, language;
+    date publish_date;
+public:
+    book();
+
+    void setIndex(int i);
+
+    int getIndex() const;
+
+    void setAge(int a);
+
+    int getAge() const;
+
+    void setMode(int m);
+
+    int getMode() const;
+
+    void setPrice(double p);
+
+    double getPrice() const;
+
+    void setName(string s);
+
+    string getName();
+
+    void setAuthor(string s);
+
+    string getAuthor();
+
+    void setPublish(string s);
+
+    string getPublish();
+
+    void setLanguage(string s);
+
+    string getLanguage();
+
+    void setPublishDate(int y, int m, int d);
+
+    date getPublishDate();
+};

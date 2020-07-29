@@ -1,4 +1,3 @@
-//
-// Created by Kininaru on 2020/7/29.
-//
+#include "my_socket.cpp"
 
+my_socket *data_socket;

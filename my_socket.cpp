@@ -1,4 +1,4 @@
-#include "socket.h"
+#include "my_socket.h"
 
 my_socket::my_socket(const string& ip, int port) {
     if ((client_socket = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
