@@ -17,7 +17,6 @@ int people_index(int number);
 people people_new();
 int people_append(people p);
 int people_upload();
-
 void people_end();
 
 int people_init() {
