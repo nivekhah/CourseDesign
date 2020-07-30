@@ -99,7 +99,7 @@ void send_people(const people& n) {
     data_socket->send_msg(to_string(n.get_number()));
     data_socket->send_msg(n.get_name());
     data_socket->send_msg(to_string(n.get_age()));
-    data_socket->send_msg(to_string(n.get_age()));
+    data_socket->send_msg(to_string(n.get_sex()));
     data_socket->send_msg(n.get_phone());
 }
 

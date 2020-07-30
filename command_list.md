@@ -1,0 +1,37 @@
+# 服务器-客户端通信协议
+
+- 发送用户信息方式
+  - line 1: `[people number]`
+  - line 2: `[people name]`
+  - line 3:`[people age]`
+  - line 4: `[people sex]`
+  - line 5: `[people phone]`
+
+- 获取所有用户信息
+  - local: `/get-people-all`
+  - server: `[people_number]`
+  - server: `[people info(5 * people_number lines)]`
+ - 按姓名查找
+   - local: `/get-people-name`
+   - local: `[name]`
+   - server: `[people info(5 lines)]`
+ - 按电话号码查找
+   - local: `/get-people-phone`
+   - local: `[phone]`
+   - server: `[people info(5 lines)]`
+ - 按序号查找
+   - local: `/get-people-number`
+   - local: `[number]`
+   - server: `[people info(5 lines)]`
+ - 删除用户
+   - local: `/del-people`
+   - local: `[number]`
+   - server:
+     - 成功删除：`0`
+     - 未能删除: `1`
+ - 添加用户
+   - local: `/add-people`
+   - local: `[people info(5 lines)]`
+   - server:
+     - 成功: `0`
+     - 用户已存在: `1`
